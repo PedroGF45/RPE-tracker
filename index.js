@@ -5,7 +5,7 @@ const session = require('express-session');
 
 // passport
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const localStrategy = require('passport-local').Strategy;
 
 // parsers
 const methodOverride = require('method-override');
@@ -19,6 +19,9 @@ const port = process.env.PORT || 3000;
 
 // database management
 const mongoose = require('mongoose');
+
+// get routes
+const homeRouter = require('./routes/homeRoute');
 
 // set app configs
 app.set('view engine', 'ejs');
@@ -40,10 +43,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// get user db model
+const User = require("./models/userModel");
+
 // passport-local-mongoose setup
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+// routes
+app.use(homeRouter);
 
 /*
 // database connection
