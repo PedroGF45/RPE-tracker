@@ -6,7 +6,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new mongoose.Schema({
     role : {
         type: String,
-        default: 'user'
+        default: 'player' // can be admin, coach, player
     }
 });
 
