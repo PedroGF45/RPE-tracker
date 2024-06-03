@@ -15,13 +15,14 @@ const cookieParser = require('cookie-parser');
 // get private vars
 require('dotenv').config();
 const port = process.env.PORT || 3000;
-//const mongo_uri = process.env.MONGO_URI;
+const mongo_uri = process.env.MONGO_URI;
 
 // database management
 const mongoose = require('mongoose');
 
 // get routes
 const homeRouter = require('./routes/homeRoute');
+const userRouter = require('./routes/userRoute');
 
 // set app configs
 app.set('view engine', 'ejs');
@@ -54,8 +55,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // routes
 app.use(homeRouter);
+app.use(userRouter);
 
-/*
 // database connection
 mongoose.connect(mongo_uri)
     .then(() => {
@@ -63,8 +64,8 @@ mongoose.connect(mongo_uri)
     }).catch((err) => {
         console.log('Database connection failed')
     });
-*/
 
+// start server
 app.listen(port, () => {
-    console.log('Server is running on port 3000');
+    console.log(`Server is running on port ${port}`);
 });
