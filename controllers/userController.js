@@ -23,7 +23,7 @@ const loginUser = (req, res) => {
                     console.log("Successfully authenticated");
                     
                     // Redirect to the home page
-                    res.redirect("/");
+                    res.redirect("dashboard");
                 };
             });
         } else {

@@ -23,6 +23,7 @@ const mongoose = require('mongoose');
 // get routes
 const homeRouter = require('./routes/homeRoute');
 const userRouter = require('./routes/userRoute');
+const dashboardRouter = require('./routes/dashboardRoute');
 
 // set app configs
 app.set('view engine', 'ejs');
@@ -56,6 +57,7 @@ passport.deserializeUser(User.deserializeUser());
 // routes
 app.use(homeRouter);
 app.use(userRouter);
+app.use(dashboardRouter);
 
 // database connection
 mongoose.connect(mongo_uri)
