@@ -5,7 +5,13 @@ const mongoose = require('mongoose');
 const trainingSchema = new mongoose.Schema({
     date: Date,
     duration: Number,
-    type: String
+    type: String,
+
+    // get the userID from the User model
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const  Training = mongoose.model('Training', trainingSchema);
