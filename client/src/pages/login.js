@@ -1,30 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <%- include('partials/head') %>
-    <body class="d-flex justify-content-center align-items-center p-0" style="height: 100vh">
-        <div class="wrapper">
-            <a href="/"><img src="/images/CSM_Logo.png" class="img-fluid mx-auto d-block rounded-pill" width="100" height="100"></a>
-            <form action="/login" method="POST">
-                <h1>Login</h1>
-                <div class="container input-box">
-                    <input type="text" placeholder="Username" name="username" required class="rounded-pill">
-                    <!-- <i class="bx bx-user"></i>  This is the icon for the username input field -->
+import React from "react";
+import { Link } from 'react-router-dom';
+import Footer from '../components/footer/Footer';
+import logo from '../assets/images/CSM_Logo.png';
+
+
+const Login = () => {
+
+    return (
+        <React.Fragment>
+            <div className="d-flex justify-content-center align-items-center p-0" style={{height: "100vh"}}>
+                <div className="wrapper">
+                    <Link to={'./'}>
+                        <img src={logo} alt="logo" className="img-fluid mx-auto d-block rounded-pill" width="100" height="100"/>
+                    </Link>
+                    <form action="/login" method="POST">
+                        <h1>Login</h1>
+                        <div className="container input-box">
+                            <input type="text" placeholder="Username" name="username" required className="rounded-pill"/>
+                            <i className="bx bx-user"></i>
+                        </div>
+                        <div className="container input-box">
+                            <input type="password" placeholder="Password" name="password" required className="rounded-pill"/>
+                            <i className="bx bx-lock-alt"></i>
+                        </div>
+                        <button type="submit" className="sign btn rounded-pill">Sign in</button>
+                        <div className="register-link">
+                            <p className="text-center">Don't have an account? <a href="/register">Register</a></p>    
+                        </div>
+                    </form>
                 </div>
-                <div class="container input-box">
-                    <input type="password" placeholder="Password" name="password" required class="rounded-pill">
-                    <!-- <i class="bx bx-lock-alt"></i>  This is the icon for the password input field -->
-                </div>
-                <% if (message.length != 0) { %>
-                    <div class="alert alert-danger" role="alert">
-                    <%= message %>
-                    </div>
-                <% } %>
-                <button type="submit" class="sign btn rounded-pill">Sign in</button>
-                <div class="register-link">
-                    <p class="text-center">Don't have an account? <a href="/register">Register</a></p>    
-                </div>
-            </form>
-        </div>
-        <%- include('partials/footer') %>
-    </body>
-</html>
+            </div>
+            <Footer />
+        </React.Fragment>
+    );
+        
+
+};
+
+export default Login;

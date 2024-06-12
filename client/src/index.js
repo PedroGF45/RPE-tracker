@@ -8,10 +8,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
+// React Router
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Login from './pages/login';
+import Register from './pages/register';
+import Dashboard from './pages/dashboard';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

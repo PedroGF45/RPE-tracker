@@ -22,7 +22,7 @@ const loginUser = (req, res) => {
                 } else {
                     console.log("Successfully authenticated");
                     
-                    // Redirect to the home page
+                    // Redirect to the dashboard
                     res.redirect("dashboard");
                 };
             });
@@ -40,7 +40,8 @@ const logout = (req, res, next) => {
     if (err) {
         return next(err);
     }
-        res.redirect("/");
+        res.redirect('/');
+        console.log("User logged out");
     });
 };
 

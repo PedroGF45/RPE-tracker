@@ -11,7 +11,7 @@ router.get('/login', userController.loginView);
 router.post('/login', userController.loginUser);
 
 // logout route
-router.get('/logout', userController.logout);
+router.post('/logout', userController.logout);
 
 // register page route
 router.get('/register', userController.registerView);

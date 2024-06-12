@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const path = require('path');
 
 // passport
 const passport = require('passport');
@@ -26,7 +27,7 @@ const userRouter = require('./routes/userRoute');
 const dashboardRouter = require('./routes/dashboardRoute');
 
 // set app configs
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
