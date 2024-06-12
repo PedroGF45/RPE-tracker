@@ -36,6 +36,6 @@
             </nav>
         </div>
         <%- include('partials/footer') %>
-        <script src="js/header.js"></script>
+        <script src="js/dashboard.js"></script>
     </body>
 </html>
