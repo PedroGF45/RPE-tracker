@@ -53,7 +53,7 @@ const Login = () => {
                             <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="rounded-pill"/>
                         </div>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
-                        <button type="submit" className="sign btn rounded-pill" onClick={(e) => handleLogin(e)}>Sign in</button>
+                        <button type="submit" className="sign btn rounded-pill">Sign in</button>
                         <div className="register-link">
                             <p className="text-center">Don't have an account? <a href="/register">Register</a></p>    
                         </div>

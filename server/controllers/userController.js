@@ -20,6 +20,7 @@ const loginUser = (req, res) => {
                 if (error) {
                     res.status(500).send({message: "An error occurred while logging in"});
                 } else {
+                    console.log("User Logged in");
                     // Redirect to the dashboard
                     res.status(200).send({message: "User authenticated", user: user.username});
                 };
@@ -56,13 +57,14 @@ const registerUser = async function (req, res) {
         const user = new User({ email, username }); // cria um novo utilizador
         await User.register(user, password); //guarda os dados na BD. Register() vem do “plugin” de passport-local-mongoose
 
-        res.redirect("/login"); // redireciona para a página de login
+        console.log("User created");
+        res.status(200).send({message: "User created", user: user.username});
     }   catch (err) {
         
         // Handle registration errors (e.g., username already exists)
-        res.render('register', { message: err });
+        res.status(500).send(err);
   }
-    
+
 };
 
 // export controller functions
