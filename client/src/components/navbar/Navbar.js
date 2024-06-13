@@ -13,17 +13,14 @@ const Navbar = () => {
 
     const expandSideBar = () => { setSidebar(!sidebar); };
 
-    const linkColor = document.querySelectorAll('.nav_link')
-    
-    function colorLink(){
-        if(linkColor){
-            linkColor.forEach(l=> l.classList.remove('active'));
-            this.classList.add('active');
-        }
+    // active link
+    const [activeNav, setActiveNav] = React.useState(null);
+
+    const handleNav = (path) => {
+        setActiveNav(path);
     }
 
-    linkColor.forEach(l=> l.addEventListener('click', colorLink));
-
+    // Logout
     const Logout = async (e) => {
         try {
             await axios.post('/logout')
@@ -52,7 +49,7 @@ const Navbar = () => {
                         <div className="nav-list">
                             {SidebarData.map((item, index) => {
                                 return (
-                                    <Link key={index} to={item.path} className={item.cName}>
+                                    <Link key={index} to={item.path} className={activeNav === item.path ? item.cName + " active" : item.cName } onClick={() => handleNav(item.path)}>
                                         <i className={item.icon}></i>
                                         <span className='nav_name'>{item.title}</span>
                                     </Link>
