@@ -27,9 +27,7 @@ const Navbar = () => {
     const Logout = async (e) => {
         try {
             await axios.post('/logout')
-            .then(res => {
-                console.log(res.data);
-                console.log("User logged out")
+            .then(() => {
                 window.location.href = '/';
             })
             .catch(err => {

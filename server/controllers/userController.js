@@ -11,25 +11,22 @@ const loginView = (req, res) => {
 
 // login user
 const loginUser = (req, res) => { 
+
     passport.authenticate("local",
       (err, user, options) => {
         if (user) {
           // If the user exists log him in:
             req.login(user, (error)=>{
                 if (error) {
-                    console.log("Error authenticating user: ", error);
-                    res.send(error);
+                    res.status(500).send({message: "An error occurred while logging in"});
                 } else {
-                    console.log("Successfully authenticated");
-                    
                     // Redirect to the dashboard
-                    res.redirect("dashboard");
+                    res.status(200).send({message: "User authenticated", user: user.username});
                 };
             });
         } else {
-            console.log("Error authenticating user: ", options.message);
             // Set the message to be passed to the template
-            res.render("login", { message: options.message });
+            res.status(401).send({message: "Invalid username or password"});
         };
   })(req, res)
 };
@@ -40,8 +37,8 @@ const logout = (req, res, next) => {
     if (err) {
         return next(err);
     }
+        
         res.redirect('/');
-        console.log("User logged out");
     });
 };
 
