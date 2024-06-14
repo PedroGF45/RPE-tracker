@@ -4,6 +4,7 @@ import Footer from '../components/footer/Footer';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+ 
     return (
         <React.Fragment>
             <div className="d-flex justify-content-center align-items-center p-0" style={{height: "100vh"}}>

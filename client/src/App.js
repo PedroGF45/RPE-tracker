@@ -1,12 +1,13 @@
 import React from 'react';
-import Home from './pages/home';
+import Routes from './routes';
+import { AuthProvider } from './contexts/AuthContext';
 
-function App() {
-
-  //const [data, setData] = useState(null);
+const App = () => {
 
   return (
-      <Home/>
+      <AuthProvider>
+          <Routes />
+      </AuthProvider>
   );
 }
 

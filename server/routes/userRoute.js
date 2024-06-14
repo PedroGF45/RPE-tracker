@@ -10,6 +10,9 @@ router.get('/login', userController.loginView);
 // login user route
 router.post('/login', userController.loginUser);
 
+// is logged in route
+router.get('/protectedRoute', userController.isLoggedIn);
+
 // logout route
 router.post('/logout', userController.logout);
 

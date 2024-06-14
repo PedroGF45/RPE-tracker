@@ -32,6 +32,19 @@ const loginUser = (req, res) => {
   })(req, res)
 };
 
+const isLoggedIn = (req, res) => {
+
+    console.log("Checking if user is logged in -server");
+
+    if (req.isAuthenticated()) {
+        console.log("User is logged in - server");
+        res.status(200).send({user: req.user})
+    } else {
+        console.log("User is not logged in -server");
+        res.status(401).send({message: "User is not logged in"});
+    }
+}
+
 // logout user
 const logout = (req, res, next) => {
     req.logout((err) => {
@@ -71,6 +84,7 @@ const registerUser = async function (req, res) {
 module.exports = {
     loginView,
     loginUser,
+    isLoggedIn,
     logout,
     registerView,
     registerUser
