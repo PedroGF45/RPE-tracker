@@ -14,7 +14,7 @@ const Navbar = () => {
     const expandSideBar = () => { setSidebar(!sidebar); };
 
     // active link
-    const [activeNav, setActiveNav] = React.useState(null);
+    const [activeNav, setActiveNav] = React.useState("/dashboard"); // Default active link
 
     const handleNav = (path) => {
         setActiveNav(path);
@@ -49,12 +49,20 @@ const Navbar = () => {
                         <div className="nav-list">
                             {SidebarData.map((item, index) => {
                                 return (
-                                    <Link key={index} to={item.path} className={activeNav === item.path ? item.cName + " active" : item.cName } onClick={() => handleNav(item.path)}>
+                                    <Link 
+                                        key={index} 
+                                        to={item.path} 
+                                        className={activeNav === item.path ? item.cName + " active" : item.cName } 
+                                        onClick={() => handleNav(item.path)}
+                                        
+                                    >
                                         <i className={item.icon}></i>
                                         <span className='nav_name'>{item.title}</span>
                                     </Link>
+                                    
                                 );
                             })}
+                            
                         </div>
                     </div>
                     <Link to="#" className="nav_link" id="logout" onClick={Logout}>
@@ -63,9 +71,8 @@ const Navbar = () => {
                     </Link>
                 </nav>
             </div>
-        </div>
-    )
-    
+        </div> 
+    ) 
 }
 
 export default Navbar;
