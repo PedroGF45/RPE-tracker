@@ -1,16 +1,20 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
-
 import ProtectedRoutes from './ProtectedRoutes';
 import GuestRoutes from './GuestRoutes';
 
-const Routes = () => {
+// redux
+import { connect } from 'react-redux';
 
-    const { isLoggedIn } = useAuth();
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.authReducer.isAuthenticated, // Include isAuthenticated
+});
 
-    console.log("isLoggedIn: ", isLoggedIn);
+const Routes = (props) => {
 
-    return isLoggedIn ? <ProtectedRoutes /> : < GuestRoutes/>;
+    const isAuthenticated = props.isAuthenticated;
+    console.log("IsAuthenticated nas rotas: ", isAuthenticated);
+
+    return isAuthenticated ? <ProtectedRoutes /> : < GuestRoutes/>;
 };
 
-export default Routes;
+export default connect(mapStateToProps)(Routes);

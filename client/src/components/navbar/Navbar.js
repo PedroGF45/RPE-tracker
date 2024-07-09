@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 // Map the selectedNav state to the props of the App component
 const mapStateToProps = (state) => {
     return {
-        selectedNav: state.selectedNav
+        selectedNav: state.navReducer.selectedNav
     };
 }
 
@@ -72,16 +72,16 @@ const Navbar = (props) => {
                         <div className="nav-list">
                             {SidebarData.map((item, index) => {
                                 return (
-                                    <div 
+                                    <a 
                                         key={index} 
                                         to={item.path} 
                                         className={selectedNav === item.path ? 'nav_link active' : 'nav_link'} 
                                         onClick={() => handleNavClick(item.path)}
-                                        
-                                    >
+                                    > 
+                                    
                                         <i className={item.icon}></i>
                                         <span className='nav_name'>{item.title}</span>
-                                    </div>
+                                    </a>
                                     
                                 );
                             })}

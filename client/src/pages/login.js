@@ -4,7 +4,32 @@ import axios from 'axios';
 import Footer from '../components/footer/Footer';
 import logo from '../assets/images/CSM_Logo.png';
 
-const Login = () => {
+// Redux
+import { connect } from 'react-redux';
+import {authRequest, authSuccess, authError, logout} from "../actions/authActions";
+
+// Map the auth state to the props of the App component
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.authReducer.isLoading,
+        isAuthenticated: state.authReducer.isAuthenticated,
+        user: state.authReducer.user,
+        userToken: state.authReducer.userToken,
+        error: state.authReducer.error
+    };
+}
+
+// Map the auth actions to the props of the App component
+const mapDispatchToProps = (dispatch) => {
+    return {
+        authRequest: () => dispatch(authRequest()),
+        authSuccess: (data) => dispatch(authSuccess(data)),
+        authError: (error) => dispatch(authError(error)),
+        logout: () => dispatch(logout())
+    }
+}
+
+const Login = (props) => {
 
     const [username, setUser] = useState("");
     const [password, setPassword] = useState("");
@@ -23,16 +48,18 @@ const Login = () => {
 
             // If the request is successful, redirect to the dashboard
             if (res.status === 200) {
-                window.location.href = '/dashboard';
+                // Dispatch the authSuccess action
+                props.authSuccess(res.data);
             } else if (res.status === 401) {
                 setErrorMessage('Invalid username or password');
-            } else if (res.status === 500) {
-                setErrorMessage('An error occurred while logging in');
+                props.authError('Invalid username or password');
             } else {
                 setErrorMessage('An error occurred while logging in');
-            }
+                props.authError('An error occurred while logging in');
+            } 
             
         } catch (error) {
+            props.authError('Invalid username or password');
             setErrorMessage('Invalid username or password');
         }
     };
@@ -53,7 +80,7 @@ const Login = () => {
                             <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="rounded-pill"/>
                         </div>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
-                        <button type="submit" className="sign btn rounded-pill">Sign in</button>
+                        <button type="submit" className="sign btn rounded-pill" onClick={props.authRequest}>Sign in</button>
                         <div className="register-link">
                             <p className="text-center">Don't have an account? <a href="/register">Register</a></p>    
                         </div>
@@ -68,4 +95,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

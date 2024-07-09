@@ -1,10 +1,14 @@
 import React from "react";
+import Footer from '../components/footer/Footer';
 
 const NotFound = () => {
     return (
-        <div>
-        <h1>NotFound</h1>
-        </div>
+        <React.Fragment>
+            <div>
+                <h1>No permissions. Contact Admin</h1>
+            </div>
+            <Footer />
+        </React.Fragment>
     );
 };
 
