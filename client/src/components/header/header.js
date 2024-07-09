@@ -1,7 +1,6 @@
 import React from 'react';
 import './headerStyles.css';
 import Profile from '../../assets/images/profile.jpeg';
-import axios from 'axios';
 
 const Header = ({ onToggleSidebar }) => {
     // Sidebar

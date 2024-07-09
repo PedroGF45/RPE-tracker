@@ -1,28 +1,28 @@
 const SidebarData = [
     {
         title: 'Dashboard',
-        path: '/dashboard',
+        path: 'dashboard',
         icon: 'bx bx-home nav_icon',
-        cName: 'nav_link'
+        active: true
     },
     {
         title: 'Users',
-        path: '/users',
+        path: 'users',
         icon: 'bx bx-user nav_icon',
-        cName: 'nav_link',
+        active: false
     },
     {
         title: 'Trainings',
-        path: '/trainings',
+        path: 'trainings',
         icon: 'bx bx-dumbbell nav_icon',
-        cName: 'nav_link',
+        active: false
     },
     {
         title: 'RPE',
-        path: '/rpe',
+        path: 'rpe',
         icon: 'bx bx-line-chart nav_icon',
-        cName: 'nav_link',
-    }
+        active: false
+    },
 ]
 
 export { SidebarData };

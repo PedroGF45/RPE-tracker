@@ -6,19 +6,42 @@ import Header from '../header/Header';
 import Logo from '../../assets/images/CSM_Logo.png';
 import axios from 'axios';
 
-const Navbar = () => {
+// Redux
+import setSelectedNav from '../../actions/navActions';
+import { connect } from 'react-redux';
+
+// Map the selectedNav state to the props of the App component
+const mapStateToProps = (state) => {
+    return {
+        selectedNav: state.selectedNav
+    };
+}
+
+// Map the setSelectedNav action to the props of the App component
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setSelectedNav: (path) => dispatch(setSelectedNav(path))
+    }
+}
+
+const Navbar = (props) => {
 
     // Sidebar
     const [sidebar, setSidebar] = React.useState(false);
 
     const expandSideBar = () => { setSidebar(!sidebar); };
 
-    // active link
-    const [activeNav, setActiveNav] = React.useState("/dashboard"); // Default active link
+    // Redux state
+    const { selectedNav, setSelectedNav } = props;
 
-    const handleNav = (path) => {
-        setActiveNav(path);
-    }
+
+    const handleNavClick = (newPath) => {
+        setSelectedNav(newPath); // Dispatch the action to update state
+    };
+
+    console.log("---------------");
+    console.log("STATE: ", selectedNav);
+    console.log("---------------");
 
     // Logout
     const Logout = async (e) => {
@@ -49,16 +72,16 @@ const Navbar = () => {
                         <div className="nav-list">
                             {SidebarData.map((item, index) => {
                                 return (
-                                    <Link 
+                                    <div 
                                         key={index} 
                                         to={item.path} 
-                                        className={activeNav === item.path ? item.cName + " active" : item.cName } 
-                                        onClick={() => handleNav(item.path)}
+                                        className={selectedNav === item.path ? 'nav_link active' : 'nav_link'} 
+                                        onClick={() => handleNavClick(item.path)}
                                         
                                     >
                                         <i className={item.icon}></i>
                                         <span className='nav_name'>{item.title}</span>
-                                    </Link>
+                                    </div>
                                     
                                 );
                             })}
@@ -75,4 +98,4 @@ const Navbar = () => {
     ) 
 }
 
-export default Navbar;
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
