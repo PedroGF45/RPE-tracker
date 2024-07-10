@@ -2,21 +2,36 @@ import React from 'react';
 import './headerStyles.css';
 import Profile from '../../assets/images/profile.jpeg';
 
-const Header = ({ onToggleSidebar }) => {
+// redux
+import { connect } from 'react-redux';
+import toggleHeader from '../../actions/headerActions';
+
+// Map the sidebar state to the props of the Header component
+const mapStateToProps = (state) => {
+    return {
+        expandedHeader: state.headerReducer.expandedHeader
+    }
+}
+
+// Map the toggleSidebar action to the props of the Header component
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleHeader: () => dispatch(toggleHeader())
+    }
+}
+
+const Header = (props) => {
+    
     // Sidebar
     const [menu, setMenu] = React.useState(false);
 
-    const handleToggle = () => {
-        if (onToggleSidebar) { // Check if prop is passed
-            onToggleSidebar(); // Call the prop function if available
-        }
-        setMenu(!menu);
-    };
+    // Redux state
+    const { expandedHeader, toggleHeader } = props;
 
     return (
-        <header className={menu ? "header-pd header" : "header"} id="header">
+        <header className={expandedHeader ? "header-pd header" : "header"} id="header">
             <div className="header_toggle"> 
-                <i className={menu ? "bx bx-x" : "bx bx-menu"} id="header-toggle" onClick={handleToggle}></i>
+                <i className={expandedHeader ? "bx bx-x" : "bx bx-menu"} id="header-toggle" onClick={props.toggleHeader}></i>
             </div>
             <div className="header_img"> 
                 <img alt="profile" src={Profile} /> 
@@ -25,4 +40,4 @@ const Header = ({ onToggleSidebar }) => {
     )
 }
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

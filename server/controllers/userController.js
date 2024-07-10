@@ -51,7 +51,7 @@ const logout = (req, res, next) => {
     if (err) {
         return next(err);
     }
-        
+        console.log("User logged out");
         res.redirect('/');
     });
 };

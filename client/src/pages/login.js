@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../components/footer/Footer';
 import logo from '../assets/images/CSM_Logo.png';
@@ -35,6 +35,9 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
+    // Use the navigate hook
+    const navigate = useNavigate();
+
     const handleLogin = async (e) => {
 
         e.preventDefault();
@@ -50,6 +53,9 @@ const Login = (props) => {
             if (res.status === 200) {
                 // Dispatch the authSuccess action
                 props.authSuccess(res.data);
+
+                // Redirect to the dashboard
+                navigate('/dashboard');
             } else if (res.status === 401) {
                 setErrorMessage('Invalid username or password');
                 props.authError('Invalid username or password');

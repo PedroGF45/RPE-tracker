@@ -7,13 +7,14 @@ import Logo from '../../assets/images/CSM_Logo.png';
 import axios from 'axios';
 
 // Redux
-import setSelectedNav from '../../actions/navActions';
 import { connect } from 'react-redux';
+import setSelectedNav from '../../actions/navActions'; //nav actions
 
 // Map the selectedNav state to the props of the App component
 const mapStateToProps = (state) => {
     return {
-        selectedNav: state.navReducer.selectedNav
+        selectedNav: state.navReducer.selectedNav,
+        expandedHeader: state.headerReducer.expandedHeader
     };
 }
 
@@ -26,23 +27,19 @@ const mapDispatchToProps = (dispatch) => {
 
 const Navbar = (props) => {
 
-    // Sidebar
-    const [sidebar, setSidebar] = React.useState(false);
-
-    const expandSideBar = () => { setSidebar(!sidebar); };
-
     // Redux state
-    const { selectedNav, setSelectedNav } = props;
-
+    const { selectedNav, setSelectedNav, expandedHeader } = props;
 
     const handleNavClick = (newPath) => {
         setSelectedNav(newPath); // Dispatch the action to update state
     };
 
+    /* Debugging 
     console.log("---------------");
     console.log("STATE: ", selectedNav);
     console.log("---------------");
-
+    */
+   
     // Logout
     const Logout = async (e) => {
         try {
@@ -60,9 +57,9 @@ const Navbar = (props) => {
     }
 
     return (
-        <div id="body-pd" className={sidebar ? "body-pd" : ""}>
-            <Header onToggleSidebar={expandSideBar} />
-            <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
+        <div id="body-pd" className={expandedHeader ? "body-pd" : ""}>
+            <Header />
+            <div className={expandedHeader ? "l-navbar show" : "l-navbar"} id="nav-bar">
                 <nav className="nav">
                     <div>
                         <Link to="#" className="nav_logo">

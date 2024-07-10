@@ -1,5 +1,6 @@
 .body-pd {
-    padding-left: calc(var(--nav-width) + 1rem)
+    padding-left: calc(var(--nav-width) + 1rem);
+    margin-top: calc(var(--header-height) + 50px);
 }
 
 .l-navbar {
@@ -84,7 +85,8 @@
 
 @media screen and (min-width: 768px) { 
     .body-pd {
-        padding-left: calc(var(--nav-width) + 188px)
+        padding-left: calc(var(--nav-width) + 188px);
+        margin-top: calc(var(--header-height) + 50px);
     }
 
     .l-navbar {
