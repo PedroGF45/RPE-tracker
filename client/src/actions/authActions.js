@@ -6,10 +6,10 @@ const authRequest = () => {
 }
 
 // action for successful authentication
-const authSuccess = (data) => {
+const authSuccess = (userToken) => {
     return {
         type: 'AUTH_SUCCESS',
-        payload: data // set user and token
+        payload: userToken // set token
     }
 }
 

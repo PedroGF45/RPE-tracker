@@ -36,8 +36,9 @@ app.use(bodyParser.json());
 // session setup
 app.use(session({
     secret: 'secret',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: false} // https only
     })
 );
 
@@ -52,7 +53,6 @@ const User = require("./models/userModel");
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 // routes
 app.use(homeRouter);

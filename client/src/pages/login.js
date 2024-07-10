@@ -12,7 +12,6 @@ import {authRequest, authSuccess, authError, logout} from "../actions/authAction
 const mapStateToProps = (state) => {
     return {
         isLoading: state.authReducer.isLoading,
-        isAuthenticated: state.authReducer.isAuthenticated,
         user: state.authReducer.user,
         userToken: state.authReducer.userToken,
         error: state.authReducer.error
@@ -35,6 +34,8 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
+    const { authRequest, authSuccess, authError, userToken } = props;
+
     // Use the navigate hook
     const navigate = useNavigate();
 
@@ -51,21 +52,29 @@ const Login = (props) => {
 
             // If the request is successful, redirect to the dashboard
             if (res.status === 200) {
+
                 // Dispatch the authSuccess action
-                props.authSuccess(res.data);
+                authSuccess(res.data.token);
+
+                console.log(userToken);
+
+                // Save the token in the local storage
+                localStorage.setItem('userToken', res.data.token);
 
                 // Redirect to the dashboard
                 navigate('/dashboard');
+                console.log("Renderizou o dashboard");
+
             } else if (res.status === 401) {
                 setErrorMessage('Invalid username or password');
-                props.authError('Invalid username or password');
+                authError('Invalid username or password');
             } else {
                 setErrorMessage('An error occurred while logging in');
-                props.authError('An error occurred while logging in');
+                authError('An error occurred while logging in');
             } 
             
         } catch (error) {
-            props.authError('Invalid username or password');
+            authError('Invalid username or password');
             setErrorMessage('Invalid username or password');
         }
     };
@@ -86,7 +95,7 @@ const Login = (props) => {
                             <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="rounded-pill"/>
                         </div>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
-                        <button type="submit" className="sign btn rounded-pill" onClick={props.authRequest}>Sign in</button>
+                        <button type="submit" className="sign btn rounded-pill" onClick={authRequest}>Sign in</button>
                         <div className="register-link">
                             <p className="text-center">Don't have an account? <a href="/register">Register</a></p>    
                         </div>

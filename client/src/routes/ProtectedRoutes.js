@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Dashboard from '../pages/Dashboard';
 
+
+
 const ProtectedRoutes = () => {
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="*" element={<Dashboard/>} />
+                <Route path="*" element={<Dashboard />} />
             </Routes>
         </BrowserRouter>
     );

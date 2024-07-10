@@ -4,6 +4,10 @@ const User = require('../models/userModel');
 // import passport
 const passport = require('passport');
 
+// import jwt
+const jwt = require('jsonwebtoken');
+const secretKey = 'secret';
+
 // show login page
 const loginView = (req, res) => {
     res.render('login', {message: ""});
@@ -20,9 +24,14 @@ const loginUser = (req, res) => {
                 if (error) {
                     res.status(500).send({message: "An error occurred while logging in"});
                 } else {
+
                     console.log("User Logged in");
-                    // Redirect to the dashboard
-                    res.status(200).send({message: "User authenticated", user: user.username});
+
+                    // Create a token
+                    const token = jwt.sign({user}, secretKey);
+
+                    // Set the message to be passed to the template and the session ID (token)
+                    res.status(200).send({message: "User authenticated", token: token});
                 };
             });
         } else {
@@ -34,13 +43,19 @@ const loginUser = (req, res) => {
 
 const isLoggedIn = (req, res) => {
 
-    console.log("Checking if user is logged in -server");
+    console.log("Checking if user is logged in server");
+
+    console.log(req.isAuthenticated());
 
     if (req.isAuthenticated()) {
-        console.log("User is logged in - server");
-        res.status(200).send({user: req.user})
+
+        console.log("User is logged in server");
+
+        req.session.user = req.user; // Save user data in session
+
+        res.status(200).send({message: "User is logged in"})
     } else {
-        console.log("User is not logged in -server");
+        console.log("User is not logged in server");
         res.status(401).send({message: "User is not logged in"});
     }
 }

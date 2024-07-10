@@ -9,6 +9,7 @@ import axios from 'axios';
 // Redux
 import { connect } from 'react-redux';
 import setSelectedNav from '../../actions/navActions'; //nav actions
+import {logout} from '../../actions/authActions'; //auth actions
 
 // Map the selectedNav state to the props of the App component
 const mapStateToProps = (state) => {
@@ -21,14 +22,15 @@ const mapStateToProps = (state) => {
 // Map the setSelectedNav action to the props of the App component
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSelectedNav: (path) => dispatch(setSelectedNav(path))
+        setSelectedNav: (path) => dispatch(setSelectedNav(path)),
+        logout: () => dispatch(logout())
     }
 }
 
 const Navbar = (props) => {
 
     // Redux state
-    const { selectedNav, setSelectedNav, expandedHeader } = props;
+    const { selectedNav, setSelectedNav, expandedHeader, logout } = props;
 
     const handleNavClick = (newPath) => {
         setSelectedNav(newPath); // Dispatch the action to update state
@@ -42,10 +44,20 @@ const Navbar = (props) => {
    
     // Logout
     const Logout = async (e) => {
+
+        e.preventDefault();
+
+        // Send a POST request to the server
         try {
             await axios.post('/logout')
             .then(() => {
                 window.location.href = '/';
+
+                // Dispatch the logout action
+                logout();
+
+                // Remove the token from the local storage
+                localStorage.removeItem('userToken');
             })
             .catch(err => {
                 console.error('Logout error:', err);
