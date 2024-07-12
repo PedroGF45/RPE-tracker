@@ -25,6 +25,7 @@ const mongoose = require('mongoose');
 const homeRouter = require('./routes/homeRoute');
 const userRouter = require('./routes/userRoute');
 const dashboardRouter = require('./routes/dashboardRoute');
+const apiRouter = require('./routes/apiRoute');
 
 // set app configs
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -58,6 +59,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(homeRouter);
 app.use(userRouter);
 app.use(dashboardRouter);
+app.use(apiRouter);
 
 // database connection
 mongoose.connect(mongo_uri)
