@@ -10,6 +10,15 @@ router.get('/api/getUsers', apiController.getUsers);
 // Get all teams
 router.get('/api/getTeams', apiController.getTeams);
 
+// Get team enums
+router.get('/api/getTeamEnums', apiController.getTeamEnums);
+
+// Get all clubs
+router.get('/api/getClubs', apiController.getClubs);
+
+// Create a club
+router.post('/api/club', apiController.apiClub);
+
 // Create a team
 router.post('/api/team', apiController.apiTeam);
 

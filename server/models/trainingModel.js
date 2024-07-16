@@ -30,6 +30,6 @@ const practiceSchema = new mongoose.Schema({
     }
 });
 
-const Training = mongoose.model('Practice', practiceSchema);
+const Practice = mongoose.model('Practice', practiceSchema);
 
 module.exports = Practice;

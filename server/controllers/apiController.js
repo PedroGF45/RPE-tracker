@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 const Team = require('../models/teamModel');
 const Training = require('../models/trainingModel'); 
 const RPE = require('../models/rpeModel');
+const Club = require('../models/clubModel');
 
 // get all users from db
 const getUsers = async (req, res) => {
@@ -36,6 +37,54 @@ const getTeams = async (req, res) => {
     }
 };
 
+// get team enums
+const getTeamEnums = async (req, res) => {
+    try {
+        // request from db
+        console.log("Requesting team enums from db...");
+
+        // get enumValues for teamLevel
+        const teamEnums = await Team.schema.path('teamLevel').enumValues;
+
+        // send the response
+        res.send(teamEnums);
+        console.log(teamEnums);
+    }
+    catch (err) {
+        console.log(err);
+    }
+};
+
+// get all clubs from db
+const getClubs = async (req, res) => {
+    try {
+        // request from db
+        console.log("Requesting clubs from db...");
+        const clubs = await Club.find();
+
+        // send the response
+        res.send(clubs);
+        console.log(clubs);
+    }
+    catch (err) {
+        console.log(err);
+    }
+};
+
+// create club
+const apiClub = async (req, res) => {
+    try {
+        // create a club
+        console.log("Creating club...");
+        const club = await Club.create({clubName: req.body.clubName});
+        console.log(club);
+        res.send(club);
+    }
+    catch (err) {
+        console.log(err);
+    }
+};
+
 // create team
 const apiTeam = async (req, res) => {
     try {
@@ -44,8 +93,9 @@ const apiTeam = async (req, res) => {
 
         console.log(req.body);
 
-        const team = await Team.create({name: req.body.teamName});
+        const team = await Team.create({teamLevel: req.body.teamLevel, clubID: req.body.clubID});
 
+        res.send(team);
     }
     catch (err) {
         console.log(err);
@@ -84,6 +134,9 @@ const apiRPE = async (req, res) => {
 module.exports = {
     getUsers,
     getTeams,
+    getTeamEnums,
+    getClubs,
+    apiClub,
     apiTeam,
     apiTraining,
     apiRPE
