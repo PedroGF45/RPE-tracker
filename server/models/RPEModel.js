@@ -10,13 +10,15 @@ const rpeSchema = new mongoose.Schema({
     // get the trainingID from the Training model
     trainingID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Training'
+        ref: 'Training',
+        required: true
     },
 
     // timestamp of when RPE is created
-    timestamp: {
+    rpeDate: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     }
 });
 

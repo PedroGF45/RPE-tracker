@@ -4,15 +4,22 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 // User schema
 const userSchema = new mongoose.Schema({
-    email: {
+
+    userEmail: {
         type: String,
         required: true,
         unique: true
     },
-    role : {
+
+    UserRole : {
         type: String,
-        default: 'player' // can be admin, coach, player
-    }
+        enum: ['admin', 'coach', 'player'],
+        required: true
+    },
+
+    userPhoto: {
+        type: Buffer,
+    },
 });
 
 // passport-local-mongoose setup (password hashing and salting, username)

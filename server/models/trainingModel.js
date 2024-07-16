@@ -2,10 +2,26 @@
 const mongoose = require('mongoose');
 
 // Training Schema
-const trainingSchema = new mongoose.Schema({
-    date: Date,
-    duration: Number,
-    type: String,
+const practiceSchema = new mongoose.Schema({
+
+    // Date of training
+    practideDate: {
+        type: Date,
+        required: true
+    },
+
+    // Duration of training
+    practiceDuration: {
+        type: Number,
+        required: true
+    },
+
+    // Training type
+    practiceType: {
+        type: String,
+        enum: ['Gym', 'Field', 'Match'],
+        required: true
+    },
 
     // get the userID from the User model
     userID: {
@@ -14,6 +30,6 @@ const trainingSchema = new mongoose.Schema({
     }
 });
 
-const Training = mongoose.model('Training', trainingSchema);
+const Training = mongoose.model('Practice', practiceSchema);
 
-module.exports = Training;
+module.exports = Practice;
