@@ -5,6 +5,12 @@ const Training = require('../models/trainingModel');
 const RPE = require('../models/rpeModel');
 const Club = require('../models/clubModel');
 
+// import jwt
+const jwt = require('jsonwebtoken');
+
+// get secret key
+const secret = process.env.SECRET;
+
 // get all users from db
 const getUsers = async (req, res) => {
     try {
@@ -130,6 +136,42 @@ const apiRPE = async (req, res) => {
     }
 };
 
+// get user role with jwt and data base
+const getUserRole = async function (req, res) {
+
+    // Get jwt token 
+    const token = req.cookies.authToken;
+
+    // Decode token
+    const decoded = jwt.verify(token, secret);
+
+    // Get user id
+    const userId = decoded.userID;
+
+    try {
+        // Find user in data base
+        const user = await User.findById(userId);
+
+        console.log("User found:");
+        console.log(user);
+        console.log("User id:");
+        console.log(user._id);
+        console.log("User role:");
+        console.log(user.role);
+        console.log("User username:");
+        console.log(user.username);
+
+        // Get user role
+        res.send({role: user.role});
+
+    } catch (err) {
+        console.log(err);
+    } finally {
+        
+        console.log("User role sent");
+    }
+};
+
 
 module.exports = {
     getUsers,
@@ -139,5 +181,6 @@ module.exports = {
     apiClub,
     apiTeam,
     apiTraining,
-    apiRPE
+    apiRPE,
+    getUserRole
 };

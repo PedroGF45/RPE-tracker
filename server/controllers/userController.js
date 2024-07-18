@@ -6,7 +6,9 @@ const passport = require('passport');
 
 // import jwt
 const jwt = require('jsonwebtoken');
-const secretKey = 'secret';
+
+// get secret key
+const secret = process.env.SECRET;
 
 // show login page
 const loginView = (req, res) => {
@@ -27,8 +29,24 @@ const loginUser = (req, res) => {
 
                     console.log("User Logged in");
 
+                    console.log(user);
+
                     // Create a token
-                    const token = jwt.sign({user}, secretKey);
+                    const token = jwt.sign(
+                        {   userID: user._id,
+                            username: user.username,
+                        }, 
+                        secret,
+                        {expiresIn: 60 * 60}); // Expires in 1 hour
+
+                    console.log(token);
+
+                    // Set the token in a cookie
+                    res.cookie('authToken', token, {
+                        httpOnly: true,
+                        secure: true,
+                        maxAge: 3600000 // 1 hour
+                    })
 
                     // Set the message to be passed to the template and the session ID (token)
                     res.status(200).send({message: "User authenticated", token: token});

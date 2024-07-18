@@ -58,9 +58,6 @@ const Login = (props) => {
 
                 console.log(userToken);
 
-                // Save the token in the local storage
-                localStorage.setItem('userToken', res.data.token);
-
                 // Redirect to the dashboard
                 navigate('/dashboard');
                 console.log("Renderizou o dashboard");

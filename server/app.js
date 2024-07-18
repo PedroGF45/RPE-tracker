@@ -17,6 +17,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
 const mongo_uri = process.env.MONGO_URI;
+const secret = process.env.SECRET;
 
 // database management
 const mongoose = require('mongoose');
@@ -36,7 +37,7 @@ app.use(bodyParser.json());
 
 // session setup
 app.use(session({
-    secret: 'secret',
+    secret: secret,
     resave: true,
     saveUninitialized: true,
     cookie: { secure: false} // https only

@@ -28,4 +28,7 @@ router.post('/api/training', apiController.apiTraining);
 // Create a RPE
 router.post('/api/rpe', apiController.apiRPE);
 
+// Get user role
+router.get('/api/getUserRole', apiController.getUserRole);
+
 module.exports = router;
