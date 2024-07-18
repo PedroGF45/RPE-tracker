@@ -3,10 +3,12 @@ import HomeDashboard from "./homeDashboard";
 import UsersDashboard from "./usersDashboard";
 import RpeDashboard from "./RpeDashboard";
 import TrainingDashboard from "./trainingDashboard";
+import ClubDashboard from "./clubDashboard";
+import TeamDashboard from "./teamDashboard";
+import ServerDashboard from "./serverDashboard";
 
 // redux
 import { connect } from "react-redux";
-import setSelectedNav from '../../actions/navActions';
 
 // Map the selectedNav state to the props of the App component
 const mapStateToProps = (state) => {
@@ -15,17 +17,10 @@ const mapStateToProps = (state) => {
     };
 }
 
-// Map the setSelectedNav action to the props of the App component
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setSelectedNav: (path) => dispatch(setSelectedNav(path))
-    }
-}
-
 const RootDashboard = (props) => {
 
     // Redux state
-    const { selectedNav, setSelectedNav } = props;
+    const { selectedNav } = props;
 
     // render dashboard item based on selectedNav
     switch(selectedNav) {
@@ -37,9 +32,15 @@ const RootDashboard = (props) => {
             return <RpeDashboard />;
         case 'trainings':
             return <TrainingDashboard />;
+        case 'clubs':
+            return <ClubDashboard />;
+        case 'teams':
+            return <TeamDashboard />;
+        case 'server':
+            return <ServerDashboard />;
         default:
             return <HomeDashboard />;
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootDashboard);
+export default connect(mapStateToProps)(RootDashboard);
