@@ -11,10 +11,11 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
 
-    UserRole : {
+    userRole : {
         type: String,
         enum: ['admin', 'coach', 'player'],
-        required: true
+        required: true,
+        default: 'admin'
     },
 
     userPhoto: {

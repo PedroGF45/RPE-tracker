@@ -152,20 +152,13 @@ const getUserRole = async function (req, res) {
         // Find user in data base
         const user = await User.findById(userId);
 
-        console.log("User found:");
-        console.log(user);
-        console.log("User id:");
-        console.log(user._id);
-        console.log("User role:");
-        console.log(user.role);
-        console.log("User username:");
-        console.log(user.username);
-
         // Get user role
         res.send({role: user.role});
 
     } catch (err) {
+
         console.log(err);
+
     } finally {
         
         console.log("User role sent");

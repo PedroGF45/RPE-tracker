@@ -7,7 +7,7 @@ import axios from 'axios';
 const Register = () => {
 
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [userEmail, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
@@ -17,7 +17,7 @@ const Register = () => {
 
         try {
             const res = await axios.post('/register', {
-                email: email,
+                userEmail: userEmail,
                 username: username,
                 password: password
             });
@@ -50,7 +50,7 @@ const Register = () => {
                             <input type="text" placeholder="Username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required className="rounded-pill"/>
                         </div>
                         <div className="container input-box">
-                            <input type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="rounded-pill"/>
+                            <input type="email" placeholder="Email" name="userEmail" value={userEmail} onChange={(e) => setEmail(e.target.value)} required className="rounded-pill"/>
                         </div>
                         <div className="container input-box">
                             <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="rounded-pill"/>

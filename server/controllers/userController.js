@@ -97,16 +97,16 @@ const registerView = (req, res) => {
 // register user
 const registerUser = async function (req, res) {
 
-    const { email, username, password } = req.body;
+    const { userEmail, username, password } = req.body;
 
     try {
-        const user = new User({ email, username }); // cria um novo utilizador
+        const user = new User({ userEmail, username }); // cria um novo utilizador
         await User.register(user, password); //guarda os dados na BD. Register() vem do “plugin” de passport-local-mongoose
 
         console.log("User created");
         res.status(200).send({message: "User created", user: user.username});
     }   catch (err) {
-        
+        console.log(err);
         // Handle registration errors (e.g., username already exists)
         res.status(500).send(err);
   }
