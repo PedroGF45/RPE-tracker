@@ -29,7 +29,7 @@ const loginUser = (req, res) => {
 
                     console.log("User Logged in");
 
-                    console.log(user);
+                    //console.log(user);
 
                     // Create a token
                     const token = jwt.sign(
@@ -38,8 +38,6 @@ const loginUser = (req, res) => {
                         }, 
                         secret,
                         {expiresIn: 60 * 60}); // Expires in 1 hour
-
-                    console.log(token);
 
                     // Set the token in a cookie
                     res.cookie('authToken', token, {
@@ -84,6 +82,9 @@ const logout = (req, res, next) => {
     if (err) {
         return next(err);
     }
+        // remove token from cookie
+        res.clearCookie('authToken');
+
         console.log("User logged out");
         res.redirect('/');
     });

@@ -13,7 +13,6 @@ const mapStateToProps = (state) => {
     return {
         isLoading: state.authReducer.isLoading,
         user: state.authReducer.user,
-        userToken: state.authReducer.userToken,
         error: state.authReducer.error
     };
 }
@@ -34,7 +33,7 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
-    const { authRequest, authSuccess, authError, userToken } = props;
+    const { authRequest, authSuccess, authError } = props;
 
     // Use the navigate hook
     const navigate = useNavigate();
@@ -53,14 +52,23 @@ const Login = (props) => {
             // If the request is successful, redirect to the dashboard
             if (res.status === 200) {
 
-                // Dispatch the authSuccess action
-                authSuccess(res.data.token);
+                try {
+                    // request token
+                    const res = await axios.get('/api/getToken');
 
-                console.log(userToken);
+                    //console.log("Token:");
+                    //console.log(res.data.token);
 
-                // Redirect to the dashboard
-                navigate('/dashboard');
-                console.log("Renderizou o dashboard");
+                    // Dispatch the authSuccess action
+                    authSuccess(res.data.token);
+
+                } catch (error) {
+                    console.log(error);
+                } finally {
+
+                    // Redirect to the dashboard
+                    navigate('/dashboard');
+                }
 
             } else if (res.status === 401) {
                 setErrorMessage('Invalid username or password');

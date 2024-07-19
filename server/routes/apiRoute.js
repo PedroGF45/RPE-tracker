@@ -31,4 +31,7 @@ router.post('/api/rpe', apiController.apiRPE);
 // Get user role
 router.get('/api/getUserRole', apiController.getUserRole);
 
+// Get token
+router.get('/api/getToken', apiController.getToken);
+
 module.exports = router;

@@ -153,18 +153,27 @@ const getUserRole = async function (req, res) {
         const user = await User.findById(userId);
 
         // Get user role
-        res.send({role: user.role});
+        res.send({role: user.userRole});
 
     } catch (err) {
 
         console.log(err);
 
     } finally {
-        
+
         console.log("User role sent");
     }
 };
 
+// get token
+const getToken = async function (req, res) {
+
+    // Get jwt token
+    const token = req.cookies.authToken;
+
+    // Send token
+    res.send({token: token});
+}
 
 module.exports = {
     getUsers,
@@ -175,5 +184,6 @@ module.exports = {
     apiTeam,
     apiTraining,
     apiRPE,
-    getUserRole
+    getUserRole,
+    getToken
 };

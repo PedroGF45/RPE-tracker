@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProtectedRoutes from './ProtectedRoutes';
 import GuestRoutes from './GuestRoutes';
 import { connect } from 'react-redux';
 import { authSuccess } from '../actions/authActions';
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
     return {
@@ -19,21 +20,42 @@ const mapDispatchToProps = (dispatch) => {
 const Routes = (props) => {
 
     const { isAuthenticated,  authSuccess } = props;
+    const [isLoading, setLoading] = useState(true);
 
-    // get the token from the local storage
-    const storedToken = localStorage.getItem('userToken');
+    useEffect(() => {
+        
+        // get token from server
+        async function getToken() {
+            try {
+                // request token
+                const res = await axios.get('/api/getToken');
 
-    // if the token exists, dispatch the authSuccess action
-    if (storedToken) {
-        authSuccess(storedToken);
-    }
+                console.log("Token:");
+                console.log(res.data.token);
 
-    // if is authenticated, return the protected routes, else return the guest routes
-    if (isAuthenticated) {
-        return <ProtectedRoutes />
-    } else {
-        return <GuestRoutes />
-    }
+                if (res.data.token) {
+                    // Dispatch the authSuccess action
+                    authSuccess(res.data.token); 
+                }
+
+                // Set loading to false
+                setLoading(false);
+
+            } catch (error) {
+                console.log(error);
+            } 
+        }
+
+        getToken();
+    },);
+
+    return (
+        <div>
+            {isLoading ? <div></div> : isAuthenticated ? <ProtectedRoutes /> : <GuestRoutes />}
+        </div>
+    );
+
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);
