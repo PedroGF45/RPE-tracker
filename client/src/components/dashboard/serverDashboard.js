@@ -5,10 +5,11 @@ const ServerDashboard = () => {
 
     async function requestUserRole() {
         
+        // request user role from server
         const res = await axios.get('/api/getUserRole');
 
-        console.log("Respotas do servidor:");
-        console.log(res);
+        //console.log("Respotas do servidor:");
+        //console.log(res.data.role);
 
     }
 

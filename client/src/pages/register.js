@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Footer from '../components/footer/Footer';
 import logo from '../assets/images/CSM_Logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
@@ -11,11 +11,17 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
+    // use navigate hook
+    const navigate = useNavigate();
+
+    // handle the registration of the user after the form is submitted
     const handleRegister = async (e) => {
 
         e.preventDefault();
 
         try {
+
+            // send a post request to the server with user data
             const res = await axios.post('/register', {
                 userEmail: userEmail,
                 username: username,
@@ -23,7 +29,8 @@ const Register = () => {
             });
 
             if (res.status === 200) {
-                window.location.href = '/login';
+                // redirect to login page
+                navigate('/login');
             } else if (res.status === 500){
                 setErrorMessage(res.data.message);
             } else {

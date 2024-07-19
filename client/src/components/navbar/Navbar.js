@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './navbarStyles.css';
 import Header from '../header/Header';
@@ -36,11 +36,8 @@ const Navbar = (props) => {
         setSelectedNav(newPath); // Dispatch the action to update state
     };
 
-    /* Debugging 
-    console.log("---------------");
-    console.log("STATE: ", selectedNav);
-    console.log("---------------");
-    */
+    // Use the navigate hook
+    const navigate = useNavigate();
    
     // Logout
     const Logout = async (e) => {
@@ -51,13 +48,13 @@ const Navbar = (props) => {
         try {
             await axios.post('/logout')
             .then(() => {
-                window.location.href = '/';
+                
+                // Redirect to the login page
+                navigate('/');
 
                 // Dispatch the logout action
                 logout();
 
-                // Remove the token from the local storage
-                localStorage.removeItem('userToken');
             })
             .catch(err => {
                 console.error('Logout error:', err);
