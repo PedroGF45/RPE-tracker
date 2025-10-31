@@ -28,6 +28,14 @@ const logout = () => {
     }
 }
 
+// action to update role
+const updateRole = (role) => {
+    return {
+        type: 'UPDATE_ROLE',
+        payload: role
+    }
+}
+
 export {
     authRequest,
     authSuccess,

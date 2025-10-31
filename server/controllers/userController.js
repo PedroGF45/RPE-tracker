@@ -36,13 +36,14 @@ const loginUser = (req, res) => {
                         {   userID: user._id,
                             username: user.username,
                         }, 
-                        secret,
-                        {expiresIn: 60 * 60}); // Expires in 1 hour
+                        secret
+                    );
 
                     // Set the token in a cookie
                     res.cookie('authToken', token, {
                         httpOnly: true,
                         secure: true,
+                        sameSite: 'strict',
                         maxAge: 3600000 // 1 hour
                     })
 

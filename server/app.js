@@ -40,7 +40,7 @@ app.use(session({
     secret: secret,
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: false} // https only
+    cookie: { secure: true, httpOnly: true} // https only
     })
 );
 

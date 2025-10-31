@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         authSuccess: (data) => dispatch(authSuccess(data)),
+        updateRole: (role) => dispatch(updateRole(role))
     }
 }
 
@@ -46,7 +47,24 @@ const Routes = (props) => {
             } 
         }
 
+        // get user role from server and update redux state
+        async function getUserRole() {
+            if (isAuthenticated) {
+                try {
+                    // request user role from server
+                    const res = await axios.get('/api/getUserRole');
+                    
+                    updateRole(res.data.role);
+
+                } catch (error) {
+
+                    console.log(error);
+                }
+            }
+        }
+
         getToken();
+        getUserRole();
     },);
 
     return (
