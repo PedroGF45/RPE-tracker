@@ -117,6 +117,14 @@ The backend exposes several RESTful endpoints (see `server/routes/apiRoute.js`):
 3. **Admins** can manage users, clubs, and teams. **Coaches** and **players** have access based on their roles.
 4. **Track RPE** for each training session and analyze data via dashboards.
 
+## Example Screenshots
+
+### Login Page
+![Login Page](./assets/screenshots/login.png)
+
+### Home Dashboard
+![Home Dashboard](./assets/screenshots/dashboard.png)
+
 ## Contributing
 Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
 
